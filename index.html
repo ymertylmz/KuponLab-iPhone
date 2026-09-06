@@ -2,22 +2,29 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <meta name="viewport"
+        content="width=device-width,
+        initial-scale=1.0,
+        maximum-scale=1.0,
+        user-scalable=no,
+        viewport-fit=cover">
 
   <title>KuponLab</title>
 
-  <!-- iPhone ana ekran uygulaması -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="KuponLab">
-  <meta name="mobile-web-app-capable" content="yes">
 
-  <!-- KuponLab ikonu -->
-  <link rel="apple-touch-icon" href="kuponlab_logo.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#020d1b">
+
+  <link rel="apple-touch-icon" href="./kuponlab_logo.png">
 
   <style>
     * {
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     html, body {
@@ -25,90 +32,107 @@
       padding: 0;
       width: 100%;
       height: 100%;
-      overflow: hidden;
       background: #020d1b;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow: hidden;
     }
 
-    #splash {
-      position: fixed;
-      inset: 0;
-      z-index: 10;
-      background: #020d1b;
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .splash {
+      width: 100%;
+      height: 100%;
+
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transition: opacity .4s ease;
+
+      background:
+        radial-gradient(
+          circle at center,
+          #06271f 0%,
+          #020d1b 52%,
+          #010812 100%
+        );
     }
 
-    #splash img {
+    .logo {
       width: 78%;
-      max-width: 420px;
-      border-radius: 24px;
-    }
-
-    #loading {
-      width: 120px;
-      height: 4px;
-      margin-top: 35px;
-      background: rgba(255,255,255,.12);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    #loading::after {
-      content: "";
+      max-width: 430px;
+      border-radius: 28px;
       display: block;
+    }
+
+    .loader {
+      width: 130px;
+      height: 5px;
+
+      margin-top: 35px;
+
+      border-radius: 20px;
+      overflow: hidden;
+
+      background: rgba(255,255,255,.12);
+    }
+
+    .loader span {
+      display: block;
+
       width: 45%;
       height: 100%;
+
+      border-radius: 20px;
+
       background: #20e98b;
-      border-radius: 10px;
-      animation: load 1s infinite ease-in-out;
+
+      animation: loading 0.9s infinite ease-in-out;
     }
 
-    @keyframes load {
-      from { transform: translateX(-120%); }
-      to { transform: translateX(270%); }
-    }
+    @keyframes loading {
+      0% {
+        transform: translateX(-110%);
+      }
 
-    iframe {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-      background: #020d1b;
+      100% {
+        transform: translateX(280%);
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div id="splash">
-    <img src="kuponlab_logo.png" alt="KuponLab">
-    <div id="loading"></div>
+  <div class="splash">
+
+    <img
+      class="logo"
+      src="./kuponlab_logo.png"
+      alt="KuponLab"
+    >
+
+    <div class="loader">
+      <span></span>
+    </div>
+
   </div>
 
-  <iframe
-    id="app"
-    src="https://kuponlab.streamlit.app/"
-    allow="clipboard-read; clipboard-write"
-  ></iframe>
-
   <script>
-    const splash = document.getElementById("splash");
-    const app = document.getElementById("app");
-
-    app.addEventListener("load", () => {
-      setTimeout(() => {
-        splash.style.opacity = "0";
-
-        setTimeout(() => {
-          splash.style.display = "none";
-        }, 400);
-      }, 800);
-    });
+    setTimeout(function () {
+      window.location.replace(
+        "https://kuponlab.streamlit.app/"
+      );
+    }, 1400);
   </script>
 
 </body>
