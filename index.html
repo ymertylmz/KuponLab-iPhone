@@ -1,1 +1,101 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
 
+  <meta name="viewport"
+        content="width=device-width,
+        initial-scale=1.0,
+        maximum-scale=1.0,
+        user-scalable=no,
+        viewport-fit=cover">
+
+  <title>KuponLab</title>
+
+  <!-- iPhone uygulama modu -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="KuponLab">
+
+  <meta name="theme-color" content="#06111f">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #06111f;
+    }
+
+    body {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      background: #06111f;
+    }
+
+    #app {
+      position: fixed;
+      top: env(safe-area-inset-top);
+      left: 0;
+      right: 0;
+      bottom: env(safe-area-inset-bottom);
+      width: 100%;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      background: #06111f;
+    }
+
+    .loading {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: #06111f;
+      color: white;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .green {
+      color: #32e67f;
+    }
+
+    .sub {
+      color: #91a2b4;
+      font-size: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="loading" class="loading">
+    <div class="logo">⚽ Kupon<span class="green">Lab</span></div>
+    <div class="sub">Maçı değil, veriyi oyna.</div>
+  </div>
+
+  <iframe
+    id="app"
+    src="https://kuponlab.streamlit.app/"
+    allow="fullscreen"
+    onload="document.getElementById('loading').style.display='none';">
+  </iframe>
+
+</body>
+</html>
