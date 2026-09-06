@@ -2,103 +2,114 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-
-  <meta name="viewport"
-        content="width=device-width,
-        initial-scale=1.0,
-        maximum-scale=1.0,
-        user-scalable=no,
-        viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
   <title>KuponLab</title>
 
+  <!-- iPhone ana ekran uygulaması -->
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="KuponLab">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="KuponLab">
+  <meta name="mobile-web-app-capable" content="yes">
 
-  <meta name="theme-color" content="#06111f">
+  <!-- KuponLab ikonu -->
+  <link rel="apple-touch-icon" href="kuponlab_logo.png">
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     html, body {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
-      background: #06111f;
       overflow: hidden;
+      background: #020d1b;
       font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    .screen {
+    #splash {
       position: fixed;
       inset: 0;
+      z-index: 10;
+      background: #020d1b;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: #06111f;
-      color: white;
+      transition: opacity .4s ease;
     }
 
-    .brand {
-      font-size: 42px;
-      font-weight: 900;
-      letter-spacing: -2px;
+    #splash img {
+      width: 78%;
+      max-width: 420px;
+      border-radius: 24px;
     }
 
-    .green {
-      color: #32e67f;
-    }
-
-    .subtitle {
-      margin-top: 14px;
-      color: #91a2b4;
-      font-size: 17px;
-    }
-
-    .loader {
-      width: 42px;
-      height: 42px;
+    #loading {
+      width: 120px;
+      height: 4px;
       margin-top: 35px;
-      border: 4px solid #183247;
-      border-top-color: #32e67f;
-      border-radius: 50%;
-      animation: spin .8s linear infinite;
+      background: rgba(255,255,255,.12);
+      border-radius: 10px;
+      overflow: hidden;
     }
 
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
+    #loading::after {
+      content: "";
+      display: block;
+      width: 45%;
+      height: 100%;
+      background: #20e98b;
+      border-radius: 10px;
+      animation: load 1s infinite ease-in-out;
+    }
+
+    @keyframes load {
+      from { transform: translateX(-120%); }
+      to { transform: translateX(270%); }
+    }
+
+    iframe {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #020d1b;
     }
   </style>
-
-  <script>
-    window.onload = function () {
-      setTimeout(function () {
-        window.location.replace("https://kuponlab.streamlit.app/");
-      }, 700);
-    };
-  </script>
-
 </head>
 
 <body>
 
-  <div class="screen">
-
-    <div class="brand">
-      ⚽ Kupon<span class="green">Lab</span>
-    </div>
-
-    <div class="subtitle">
-      Maçı değil, veriyi oyna.
-    </div>
-
-    <div class="loader"></div>
-
+  <div id="splash">
+    <img src="kuponlab_logo.png" alt="KuponLab">
+    <div id="loading"></div>
   </div>
+
+  <iframe
+    id="app"
+    src="https://kuponlab.streamlit.app/"
+    allow="clipboard-read; clipboard-write"
+  ></iframe>
+
+  <script>
+    const splash = document.getElementById("splash");
+    const app = document.getElementById("app");
+
+    app.addEventListener("load", () => {
+      setTimeout(() => {
+        splash.style.opacity = "0";
+
+        setTimeout(() => {
+          splash.style.display = "none";
+        }, 400);
+      }, 800);
+    });
+  </script>
 
 </body>
 </html>
